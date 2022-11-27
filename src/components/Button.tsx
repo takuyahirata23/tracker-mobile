@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Pressable } from 'react-native'
 
-type Props = {
+export type Props = {
   children: string
 }
 
