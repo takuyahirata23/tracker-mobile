@@ -11,6 +11,8 @@ module.exports = {
           '~/components': './src/components',
           '~/functions': './src/functions',
           '~/procedures': './src/procedures',
+          '~/navigations': './src/navigations',
+          '~/screens': './src/screens',
         },
       },
     ],
