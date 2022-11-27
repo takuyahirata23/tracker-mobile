@@ -18,6 +18,7 @@ i18n
         translation: require('../i18n/translations/ja-JP.json'),
       },
     },
+    lng: 'en-US',
     fallbackLng: 'en-US',
 
     interpolation: {
