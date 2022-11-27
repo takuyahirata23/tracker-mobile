@@ -7,15 +7,22 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest --collect-coverage",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "pod": "cd ios && pod install"
   },
   "dependencies": {
     "@os-team/i18next-react-native-language-detector": "^1.0.20",
+    "@react-navigation/bottom-tabs": "^6.4.1",
+    "@react-navigation/native": "^6.0.14",
     "i18next": "^22.0.6",
     "nativewind": "^2.0.11",
     "react": "18.1.0",
     "react-i18next": "^12.0.0",
-    "react-native": "0.70.6"
+    "react-native": "0.70.6",
+    "react-native-feather": "^1.1.2",
+    "react-native-safe-area-context": "^4.4.1",
+    "react-native-screens": "^3.18.2",
+    "react-native-svg": "^13.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

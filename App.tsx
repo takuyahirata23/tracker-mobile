@@ -1,16 +1,17 @@
 import React from 'react'
-import { SafeAreaView, StatusBar, Text } from 'react-native'
-import { useTranslation } from 'react-i18next'
+import { StatusBar } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import Button from '~/components/Button'
+import BottomTabNavigator from '~/navigations/BottomTabNavigator'
 
 export default function App() {
-  const { t } = useTranslation()
   return (
-    <SafeAreaView className="bg-bg-primary border-2 flex-1">
-      <StatusBar barStyle="light-content" />
-      <Text className="font-bold text-2xl text-primary">here</Text>
-      <Button>{t('common.test')}</Button>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <StatusBar barStyle="light-content" />
+        <BottomTabNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   )
 }

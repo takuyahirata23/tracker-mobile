@@ -11,6 +11,8 @@
       "~/components*": ["src/components/*"],
       "~/functions*": ["src/functions/*"],
       "~/procedures*": ["src/procedures/*"],
+      "~/screens*": ["src/screens/*"],
+      "~/navigations*": ["src/navigations/*"],
     }
   }
 }
