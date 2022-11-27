@@ -8,7 +8,7 @@ export type Props = {
 export default function Button({ children }: Props) {
   return (
     <Pressable className="px-2 py-1">
-      <Text>{children}</Text>
+      <Text className="text-secondary">{children}</Text>
     </Pressable>
   )
 }
