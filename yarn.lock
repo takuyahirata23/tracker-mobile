@@ -3545,6 +3545,11 @@ fsevents@^2.1.2, fsevents@~2.3.2:
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
+fts-utils@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/fts-utils/-/fts-utils-1.1.13.tgz#089c9d45173455ca86751e0b86246b21252ea63e"
+  integrity sha512-GfWOH0fn7xbSg1dA+Q74W1NvUFVjZ5P6HzhmitdHRcWeU3iDOw9qp8hqSQEcJcfxx/KaLy5DK/dKeNRFJL12Iw==
+
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
