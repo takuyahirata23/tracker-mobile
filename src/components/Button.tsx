@@ -23,7 +23,7 @@ export default function Button({
   return (
     <Pressable
       onPress={onPress}
-      className={classNames('p-2 w-full rounded-md', style[variant])}
+      className={classNames('block p-2 rounded-md', style[variant])}
     >
       <Text classOverride="text-center text-lg">{children}</Text>
     </Pressable>

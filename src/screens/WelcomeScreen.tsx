@@ -6,7 +6,12 @@ import Layout from '~/components/Layout'
 import Button from '~/components/Button'
 import Text from '~/components/Text'
 
-export default function WelcomeScreen({ navigation }) {
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import type { AuthStackPramList } from '~/navigations/AuthNavigator'
+
+type Props = NativeStackScreenProps<AuthStackPramList, 'Welcome'>
+
+export default function WelcomeScreen({ navigation }: Props) {
   const { t } = useTranslation()
 
   const onPress = () => navigation.navigate('SignUp')

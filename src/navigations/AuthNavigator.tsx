@@ -4,7 +4,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import WelcomeScreen from '~/screens/WelcomeScreen'
 import SignUpScreen from '~/screens/SignUpScreen'
 
-const Stack = createNativeStackNavigator()
+export type AuthStackPramList = {
+  Welcome: undefined
+  SignUp: undefined
+}
+
+const Stack = createNativeStackNavigator<AuthStackPramList>()
 
 export default function AuthNavigator() {
   return (
