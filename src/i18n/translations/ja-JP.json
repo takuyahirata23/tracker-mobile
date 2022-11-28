@@ -1,5 +1,11 @@
 {
   "common": {
     "test": "テスト"
+  },
+  "Auth": {
+    "heading": "ようこそ, Trackerへ",
+    "welcomeMessage": "ベストを記録したり、他のライダーのタイムを確認したりしてサーキット走行をもっと楽しくするアプリです。",
+    "alreadyHaveAccount": "アカウントをお持ちですか？",
+    "login": "ログインする "
   }
 }

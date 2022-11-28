@@ -1,14 +1,23 @@
 import React from 'react'
-import { Text, Pressable } from 'react-native'
+import { Pressable } from 'react-native'
+
+import classNames from '~/functions/classNames'
+import Text from '~/components/Text'
 
 export type Props = {
   children: string
+  variant?: 'primary' | 'secondary'
 }
 
-export default function Button({ children }: Props) {
+const style = {
+  primary: 'bg-btn-primary',
+  secondary: 'bg-btn-secondary',
+}
+
+export default function Button({ children, variant = 'primary' }: Props) {
   return (
-    <Pressable className="px-2 py-1">
-      <Text className="text-secondary">{children}</Text>
+    <Pressable className={classNames('p-2 w-full rounded-md', style[variant])}>
+      <Text classOverride="text-center text-lg">{children}</Text>
     </Pressable>
   )
 }
