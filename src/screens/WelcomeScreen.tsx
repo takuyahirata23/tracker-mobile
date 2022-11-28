@@ -6,8 +6,10 @@ import Layout from '~/components/Layout'
 import Button from '~/components/Button'
 import Text from '~/components/Text'
 
-export default function AuthScreen() {
+export default function WelcomeScreen({ navigation }) {
   const { t } = useTranslation()
+
+  const onPress = () => navigation.navigate('SignUp')
 
   return (
     <Layout classOverride="flex justify-center">
@@ -18,7 +20,7 @@ export default function AuthScreen() {
         </Text>
       </View>
       <View>
-        <Button>{t('Sign up!')}</Button>
+        <Button onPress={onPress}>{t('Auth.signUp')}</Button>
         <View className="mt-4">
           <Text variant="tertiary" classOverride="text-center text-lg">
             {t('Auth.alreadyHaveAccount')}

@@ -1,11 +1,16 @@
 {
   "common": {
-    "test": "TEST YO!"
+    "back": "Back",
+    "name": "Name",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password"
   },
   "Auth": {
     "heading": "Hi Track Addicts!",
     "welcomeMessage": "Record your lap times, connect with other track addicts and more!",
     "alreadyHaveAccount": "Already have your account?",
-    "login": "Log in"
+    "login": "Log in",
+    "signUp": "Sign up"
   }
 }

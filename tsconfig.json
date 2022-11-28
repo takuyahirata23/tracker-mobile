@@ -12,6 +12,7 @@
       "~/functions*": ["src/functions/*"],
       "~/procedures*": ["src/procedures/*"],
       "~/screens*": ["src/screens/*"],
+      "~/utils*": ["src/utils/*"],
       "~/navigations*": ["src/navigations/*"],
     }
   }

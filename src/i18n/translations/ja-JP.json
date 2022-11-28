@@ -1,11 +1,16 @@
 {
   "common": {
-    "test": "テスト"
+    "back": "戻る",
+    "name": "名前",
+    "username": "ユーザー名",
+    "email": "Eメール",
+    "password": "パスワード"
   },
   "Auth": {
     "heading": "ようこそ, Trackerへ",
     "welcomeMessage": "ベストを記録したり、他のライダーのタイムを確認したりしてサーキット走行をもっと楽しくするアプリです。",
     "alreadyHaveAccount": "アカウントをお持ちですか？",
-    "login": "ログインする "
+    "login": "ログインする",
+    "signUp": "サインアップ"
   }
 }
