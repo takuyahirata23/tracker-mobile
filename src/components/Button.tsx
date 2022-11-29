@@ -3,14 +3,15 @@ import { Pressable } from 'native-base'
 
 import Text from './Text'
 
-import { Props as TextProps } from './Text'
+import type { IButtonProps } from 'native-base'
+import type { Props as TextProps } from './Text'
 
 export type Props = {
   children: string
   onPress: () => void
   variant?: 'primary' | 'secondary'
   TextProps?: Omit<TextProps, 'children'>
-}
+} & IButtonProps
 
 export default function Button({
   children,
