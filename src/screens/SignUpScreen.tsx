@@ -7,13 +7,19 @@ import Layout from '~/components/Layout'
 import Text from '~/components/Text'
 import Button from '~/components/Button'
 import { url } from '~/utils/constants'
+import { validateSignUpForm } from '~/functions/validations'
 
+import type { TextInputProps } from 'react-native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { AuthStackPramList } from '~/navigations/AuthNavigator'
 
 type Props = NativeStackScreenProps<AuthStackPramList, 'SignUp'>
 
-function Input({ ...rest }) {
+type InputProps = {
+  error?: string
+} & TextInputProps
+
+function Input({ error, ...rest }: InputProps) {
   return (
     <View>
       <TextInput
@@ -22,66 +28,80 @@ function Input({ ...rest }) {
         className="bg-bg-secondary text-primary rounded-md h-10  px-4"
         {...rest}
       />
+      {error && <Text variant="tertiary">{error}</Text>}
     </View>
   )
 }
 
+const signUp = (form: { [key: string]: string }) =>
+  fetch(url.concat('/register'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(form),
+  })
+    .then(d => d.json())
+    .then(console.log)
+    .catch(console.error)
+
 export default function SignUpScreen({ navigation }: Props) {
   const { t } = useTranslation()
-  const [state, setState] = React.useState({
+  const [form, setForm] = React.useState({
     name: '',
     username: '',
     email: '',
     password: '',
   })
 
-  const { name, username, email, password } = state
+  const [formErrors, setFormErrors] = React.useState({ isValid: false })
+
+  const { name, username, email, password } = form
 
   const onChangeText = (field: string) => (x: string) =>
-    setState(prev => ({ ...prev, [field]: x }))
+    setForm(prev => ({ ...prev, [field]: x }))
 
-  const validate = () => {}
+  const handleSubmit = () => setFormErrors(validateSignUpForm(form))
 
-  // const handleSubmit = () => {
-  //   fetch(url.concat('/register'), {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(state),
-  //   })
-  //     .then(d => d.json())
-  //     .then(console.log)
-  //     .catch(console.error)
-  // }
+  React.useEffect(() => {
+    if (formErrors.isValid) {
+      //signUp(form)
+      console.log('run')
+    }
+  }, [formErrors, form])
 
   return (
-    <Layout classOverride="border-2 border-white">
+    <Layout>
       <View className="gap-4">
         <Input
           value={name}
           onChangeText={onChangeText('name')}
-          placeholder={t('common.name')}
+          placeholder={t('common.name') as string}
+          error={formErrors.name}
         />
         <Input
           value={username}
           onChangeText={onChangeText('username')}
-          placeholder={t('common.username')}
+          placeholder={t('common.username') as string}
+          error={formErrors.username}
         />
         <Input
           value={email}
           onChangeText={onChangeText('email')}
-          placeholder={t('common.email')}
+          placeholder={t('common.email') as string}
+          error={formErrors.email}
         />
         <Input
           value={password}
           onChangeText={onChangeText('password')}
-          placeholder={t('common.password')}
+          placeholder={t('common.password') as string}
+          error={formErrors.password}
         />
-        <TextInput value={username} onChangeText={onChangeText('username')} />
       </View>
-      <View>
-        <Button onPress={handleSubmit}>{t('Auth.signUp')}</Button>
+      <View className="mt-8">
+        <View className="mb-8">
+          <Button onPress={handleSubmit}>{t('Auth.signUp')}</Button>
+        </View>
         <Button onPress={navigation.goBack}>{t('common.back')}</Button>
       </View>
     </Layout>

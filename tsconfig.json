@@ -8,12 +8,12 @@
     "baseUrl": "./",
     "paths": {
       "~/": ["src/*"],
-      "~/components*": ["src/components/*"],
-      "~/functions*": ["src/functions/*"],
-      "~/procedures*": ["src/procedures/*"],
-      "~/screens*": ["src/screens/*"],
-      "~/utils*": ["src/utils/*"],
-      "~/navigations*": ["src/navigations/*"],
+      "~/components/*": ["src/components/*"],
+      "~/functions/*": ["src/functions/*"],
+      "~/procedures/*": ["src/procedures/*"],
+      "~/screens/*": ["src/screens/*"],
+      "~/utils/*": ["src/utils/*"],
+      "~/navigations/*": ["src/navigations/*"],
     }
   }
 }
