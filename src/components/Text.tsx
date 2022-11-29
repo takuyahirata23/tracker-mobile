@@ -1,24 +1,29 @@
 import React from 'react'
-import { Text as T } from 'react-native'
+import { Text as T } from 'native-base'
 
-import classNames from '~/functions/classNames'
+import type { ITextProps } from 'native-base'
 
-type Props = {
+export type Props = {
   children: React.ReactNode
   variant?: 'primary' | 'secondary' | 'tertiary'
-  classOverride?: string
-}
-
-const style = {
-  primary: 'text-primary font-bold text-2xl',
-  secondary: 'text-secondary text-lg',
-  tertiary: 'text-tertiary',
-}
+  type?: 'heading' | 'body'
+} & ITextProps
 
 export default function Text({
   children,
   variant = 'primary',
-  classOverride = '',
+  type = 'body',
+  ...rest
 }: Props) {
-  return <T className={classNames(style[variant], classOverride)}>{children}</T>
+  const isBody = type === 'body'
+  return (
+    <T
+      color={`[${variant}].500`}
+      fontSize={isBody ? 'lg' : '3xl'}
+      fontWeight={isBody ? 'normal' : 'bold'}
+      {...rest}
+    >
+      {children}
+    </T>
+  )
 }

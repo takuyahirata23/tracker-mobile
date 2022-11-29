@@ -1,18 +1,14 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { VStack, IBoxProps } from 'native-base'
 
 type Props = {
   children: React.ReactNode
-  classOverride?: string
-}
+} & IBoxProps
 
-export default function Layout({ children, classOverride = '' }: Props) {
+export default function Layout({ children, ...rest }: Props) {
   return (
-    <SafeAreaView
-      className={['bg-bg-primary flex-1 p-6', classOverride].join(' ')}
-      edges={['top', 'right', 'left', 'bottom']}
-    >
+    <VStack flex={1} p={6} safeArea bgColor="bg-primary.500" {...rest}>
       {children}
-    </SafeAreaView>
+    </VStack>
   )
 }

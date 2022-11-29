@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { Input as NBInput, Box, Button, VStack, Text } from 'native-base'
 
 import { colors } from '~/utils/constants'
 import Layout from '~/components/Layout'
-import Text from '~/components/Text'
-import Button from '~/components/Button'
+//import Text from '~/components/Text'
+//import Button from '~/components/Button'
 import { url } from '~/utils/constants'
 import { validateSignUpForm } from '~/functions/validations'
 
@@ -21,15 +21,15 @@ type InputProps = {
 
 function Input({ error, ...rest }: InputProps) {
   return (
-    <View>
-      <TextInput
+    <VStack>
+      <NBInput
         placeholderTextColor={colors.secondary}
         textAlign="left"
         className="bg-bg-secondary text-primary rounded-md h-10  px-4"
         {...rest}
       />
-      {error && <Text variant="tertiary">{error}</Text>}
-    </View>
+      {error && <Text color="tertiary.500">{error}</Text>}
+    </VStack>
   )
 }
 
@@ -54,7 +54,19 @@ export default function SignUpScreen({ navigation }: Props) {
     password: '',
   })
 
-  const [formErrors, setFormErrors] = React.useState({ isValid: false })
+  const [formErrors, setFormErrors] = React.useState<{
+    isValid: boolean
+    name?: string
+    username?: string
+    email?: string
+    password?: string
+  }>({
+    isValid: false,
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+  })
 
   const { name, username, email, password } = form
 
@@ -72,7 +84,7 @@ export default function SignUpScreen({ navigation }: Props) {
 
   return (
     <Layout>
-      <View className="gap-4">
+      <VStack space={8}>
         <Input
           value={name}
           onChangeText={onChangeText('name')}
@@ -97,13 +109,15 @@ export default function SignUpScreen({ navigation }: Props) {
           placeholder={t('common.password') as string}
           error={formErrors.password}
         />
-      </View>
-      <View className="mt-8">
-        <View className="mb-8">
-          <Button onPress={handleSubmit}>{t('Auth.signUp')}</Button>
-        </View>
-        <Button onPress={navigation.goBack}>{t('common.back')}</Button>
-      </View>
+      </VStack>
+      <VStack mt={8} space={8}>
+        <Button onPress={handleSubmit} bgColor="btn-primary.500">
+          {t('Auth.signUp')}
+        </Button>
+        <Button onPress={navigation.goBack} bgColor="btn-secondary.500">
+          {t('common.back')}
+        </Button>
+      </VStack>
     </Layout>
   )
 }
