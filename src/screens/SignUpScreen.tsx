@@ -1,10 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { VStack } from 'native-base'
+import { VStack, KeyboardAvoidingView, ScrollView } from 'native-base'
 
 import { Layout, Button, Input } from '~/components'
 import { url } from '~/utils/constants'
 import { validateSignUpForm } from '~/functions/validations'
+import checkOS from '~/procedures/checkOS'
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { AuthStackPramList } from '~/navigations/AuthNavigator'
@@ -62,40 +63,53 @@ export default function SignUpScreen({ navigation }: Props) {
 
   return (
     <Layout>
-      <VStack space={8}>
-        <Input
-          value={name}
-          onChangeText={onChangeText('name')}
-          placeholder={t('common.name') as string}
-          error={formErrors.name}
-        />
-        <Input
-          value={username}
-          onChangeText={onChangeText('username')}
-          placeholder={t('common.username') as string}
-          error={formErrors.username}
-        />
-        <Input
-          value={email}
-          onChangeText={onChangeText('email')}
-          placeholder={t('common.email') as string}
-          error={formErrors.email}
-        />
-        <Input
-          value={password}
-          onChangeText={onChangeText('password')}
-          placeholder={t('common.password') as string}
-          error={formErrors.password}
-        />
-      </VStack>
-      <VStack mt={8} space={8}>
-        <Button onPress={handleSubmit} bgColor="btn-primary.500">
-          {t('Auth.signUp')}
-        </Button>
-        <Button onPress={navigation.goBack} bgColor="btn-secondary.500">
-          {t('common.back')}
-        </Button>
-      </VStack>
+      <KeyboardAvoidingView
+        behavior={checkOS() ? 'padding' : 'height'}
+        flex={1}
+      >
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: 'center',
+          }}
+        >
+          <VStack space={8}>
+            <Input
+              value={name}
+              onChangeText={onChangeText('name')}
+              placeholder={t('common.name') as string}
+              error={formErrors.name}
+            />
+            <Input
+              value={username}
+              onChangeText={onChangeText('username')}
+              placeholder={t('common.username') as string}
+              error={formErrors.username}
+            />
+            <Input
+              value={email}
+              onChangeText={onChangeText('email')}
+              placeholder={t('common.email') as string}
+              error={formErrors.email}
+            />
+            <Input
+              value={password}
+              onChangeText={onChangeText('password')}
+              placeholder={t('common.password') as string}
+              error={formErrors.password}
+              secureTextEntry
+            />
+          </VStack>
+          <VStack mt={8} space={8}>
+            <Button onPress={handleSubmit} bgColor="btn-primary.500">
+              {t('Auth.signUp')}
+            </Button>
+            <Button onPress={navigation.goBack} bgColor="transparent">
+              {t('common.back')}
+            </Button>
+          </VStack>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Layout>
   )
 }

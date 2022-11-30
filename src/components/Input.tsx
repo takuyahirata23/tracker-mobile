@@ -9,19 +9,16 @@ type InputProps = {
   error?: string
 } & TextInputProps
 
-export default function Input({ error, ...rest }: InputProps) {
+function Input({ error, ...rest }: InputProps, ref: any) {
   return (
     <VStack>
       <NBInput
+        ref={ref}
         variant="filled"
         borderWidth={0}
         placeholderTextColor="secondary.500"
         backgroundColor="btn-secondary.500"
-        cursorColor="primary.500"
-        selectionColor="white"
-        textDecorationColor="white"
         height={12}
-        textAlign="left"
         color="primary.500"
         {...rest}
       />
@@ -29,3 +26,5 @@ export default function Input({ error, ...rest }: InputProps) {
     </VStack>
   )
 }
+
+export default React.forwardRef(Input)
