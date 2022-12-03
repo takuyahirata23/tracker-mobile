@@ -1,17 +1,47 @@
 import React from 'react'
 import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { NativeBaseProvider, extendTheme } from 'native-base'
+import { Provider } from 'react-redux'
 
-import BottomTabNavigator from '~/navigations/BottomTabNavigator'
+import { store } from '~/redux/store'
+import Router from '~/navigations/Router'
+
+const theme = extendTheme({
+  colors: {
+    primary: {
+      500: '#ffffff',
+    },
+    socondary: {
+      500: '#94a3b8',
+    },
+    tertiary: {
+      500: '#0ea4e9',
+    },
+    'bg-primary': {
+      500: '#0f172a',
+    },
+    'bg-secondary': {
+      500: '#1e293b',
+    },
+    'btn-primary': {
+      500: '#0ea5e9',
+    },
+    'btn-secondary': {
+      500: '#334155',
+    },
+  },
+})
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <NativeBaseProvider theme={theme}>
       <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <BottomTabNavigator />
+        <Provider store={store}>
+          <StatusBar barStyle="light-content" />
+          <Router />
+        </Provider>
       </NavigationContainer>
-    </SafeAreaProvider>
+    </NativeBaseProvider>
   )
 }

@@ -1,5 +1,22 @@
 {
   "common": {
-    "test": "TEST YO!"
+    "back": "Back",
+    "name": "Name",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password"
+  },
+  "Auth": {
+    "heading": "Hi👋 Track Addicts!",
+    "welcomeMessage": "Record your lap times, connect with other track addicts and more!",
+    "alreadyHaveAccount": "Already have your account?",
+    "login": "Log in",
+    "signUp": "Sign up"
+  },
+  "validationErroMessages": {
+    "name": "At least 2 charactars required",
+    "username": "At least 2 charactars required",
+    "email": "Email is not valid",
+    "password": "At leaset 8 caracters, one upper/lower cases, and special characer"
   }
 }

@@ -8,11 +8,15 @@
     "baseUrl": "./",
     "paths": {
       "~/": ["src/*"],
-      "~/components*": ["src/components/*"],
-      "~/functions*": ["src/functions/*"],
-      "~/procedures*": ["src/procedures/*"],
-      "~/screens*": ["src/screens/*"],
-      "~/navigations*": ["src/navigations/*"],
+      "~/components": ["src/components/index.ts"],
+      "~/functions/*": ["src/functions/*"],
+      "~/hooks/*": ["src/hooks/*"],
+      "~/navigations/*": ["src/navigations/*"],
+      "~/procedures/*": ["src/procedures/*"],
+      "~/redux/*": ["src/redux/*"],
+      "~/screens/*": ["src/screens/*"],
+      "~/types/*": ["src/types/*"],
+      "~/utils/*": ["src/utils/*"]
     }
   }
 }

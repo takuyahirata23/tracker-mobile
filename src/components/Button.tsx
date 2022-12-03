@@ -1,14 +1,36 @@
 import React from 'react'
-import { Text, Pressable } from 'react-native'
+import { Pressable } from 'native-base'
+
+import Text from './Text'
+
+import type { IButtonProps } from 'native-base'
+import type { Props as TextProps } from './Text'
 
 export type Props = {
   children: string
-}
+  onPress: () => void
+  variant?: 'primary' | 'secondary'
+  TextProps?: Omit<TextProps, 'children'>
+} & IButtonProps
 
-export default function Button({ children }: Props) {
+export default function Button({
+  children,
+  onPress,
+  variant = 'primary',
+  TextProps = {},
+  ...rest
+}: Props) {
   return (
-    <Pressable className="px-2 py-1">
-      <Text className="text-secondary">{children}</Text>
+    <Pressable
+      onPress={onPress}
+      p={2}
+      borderRadius={6}
+      bgColor={`btn-${variant}.500`}
+      {...rest}
+    >
+      <Text textAlign="center" {...TextProps}>
+        {children}
+      </Text>
     </Pressable>
   )
 }
