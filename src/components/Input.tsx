@@ -6,7 +6,7 @@ import Text from './Text'
 import type { TextInputProps } from 'react-native'
 
 type InputProps = {
-  error?: string
+  error: string
 } & TextInputProps
 
 function Input({ error, ...rest }: InputProps, ref: any) {
@@ -22,7 +22,11 @@ function Input({ error, ...rest }: InputProps, ref: any) {
         color="primary.500"
         {...rest}
       />
-      {error && <Text color="tertiary.500">{error}</Text>}
+      {error && (
+        <Text fontSize="sm" color="tertiary.500">
+          {error}
+        </Text>
+      )}
     </VStack>
   )
 }

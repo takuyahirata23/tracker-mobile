@@ -78,25 +78,25 @@ export default function SignUpScreen({ navigation }: Props) {
               value={name}
               onChangeText={onChangeText('name')}
               placeholder={t('common.name') as string}
-              error={formErrors.name}
+              error={t(formErrors.name as string)}
             />
             <Input
               value={username}
               onChangeText={onChangeText('username')}
               placeholder={t('common.username') as string}
-              error={formErrors.username}
+              error={t(formErrors.username as string)}
             />
             <Input
               value={email}
               onChangeText={onChangeText('email')}
               placeholder={t('common.email') as string}
-              error={formErrors.email}
+              error={t(formErrors.email as string)}
             />
             <Input
               value={password}
               onChangeText={onChangeText('password')}
               placeholder={t('common.password') as string}
-              error={formErrors.password}
+              error={t(formErrors.password as string)}
               secureTextEntry
             />
           </VStack>
