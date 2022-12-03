@@ -10,10 +10,13 @@
       "~/": ["src/*"],
       "~/components": ["src/components/index.ts"],
       "~/functions/*": ["src/functions/*"],
-      "~/procedures/*": ["src/procedures/*"],
-      "~/screens/*": ["src/screens/*"],
-      "~/utils/*": ["src/utils/*"],
+      "~/hooks/*": ["src/hooks/*"],
       "~/navigations/*": ["src/navigations/*"],
+      "~/procedures/*": ["src/procedures/*"],
+      "~/redux/*": ["src/redux/*"],
+      "~/screens/*": ["src/screens/*"],
+      "~/types/*": ["src/types/*"],
+      "~/utils/*": ["src/utils/*"]
     }
   }
 }

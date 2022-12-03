@@ -2,7 +2,9 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { NativeBaseProvider, extendTheme } from 'native-base'
+import { Provider } from 'react-redux'
 
+import { store } from '~/redux/store'
 import Router from '~/navigations/Router'
 
 const theme = extendTheme({
@@ -35,8 +37,10 @@ export default function App() {
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <Router />
+        <Provider store={store}>
+          <StatusBar barStyle="light-content" />
+          <Router />
+        </Provider>
       </NavigationContainer>
     </NativeBaseProvider>
   )
