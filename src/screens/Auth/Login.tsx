@@ -48,6 +48,8 @@ export default function Login({ navigation }: Props) {
 
   const dispatchSetUser = (res: UserAndToken) => dispatch(setUser(res))
 
+  const isPending = status === 'pending'
+
   React.useEffect(() => {
     if (formErrors.isValid) {
       dispatch(updateStatus('pending'))
@@ -55,7 +57,7 @@ export default function Login({ navigation }: Props) {
   }, [formErrors])
 
   React.useEffect(() => {
-    if (status === 'pending') {
+    if (isPending) {
       login(form)
         .then(either => either.fold(dispatchSetErrorStatus, dispatchSetUser))
         .catch(() => dispatch(setErrorStatus('There was a problem loggin in')))
@@ -92,7 +94,13 @@ export default function Login({ navigation }: Props) {
               secureTextEntry
             />
 
-            <Button onPress={onSubmit}>Login</Button>
+            <Button
+              onPress={onSubmit}
+              isLoading={isPending}
+              loadingText={t('common.loading') as string}
+            >
+              Login
+            </Button>
             <Button onPress={navigation.goBack} bgColor="transparent">
               {t('common.back')}
             </Button>
