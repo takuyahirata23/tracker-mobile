@@ -2,17 +2,18 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { VStack, KeyboardAvoidingView, ScrollView } from 'native-base'
 
-import { Layout, Button, Input } from '~/components'
+import { Layout, Button, Input, Text } from '~/components'
 import { validateSignUpForm } from '~/functions/validations'
 import checkOS from '~/procedures/checkOS'
-import { signUp } from '~/procedures/signUp'
+import { signUp } from '~/procedures/auth'
 import { useAppSelector, useAppDispatch } from '~/hooks/reduxAppHooks'
-import { setUser, updateStatus } from '~/redux/authSlice'
+import { setUser, updateStatus, setErrorStatus } from '~/redux/authSlice'
 import { traverseErrors } from '~/functions/traverseErrors'
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { AuthStackPramList } from '~/navigations/AuthNavigator'
 import type { SignUpErrorForm as ErrorForm } from '~/types/form'
+import type { UserAndToken, AuthResponse } from '~/redux/authSlice'
 
 type Props = NativeStackScreenProps<AuthStackPramList, 'SignUp'>
 
@@ -31,10 +32,10 @@ const formErrorInitialState = {
   password: '',
 }
 
-export default function SignUpScreen({ navigation }: Props) {
+export default function SignUp({ navigation }: Props) {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.auth.status)
+  const { status, errorStatus } = useAppSelector(state => state.auth)
 
   const [form, setForm] = React.useState(formInitialState)
 
@@ -49,27 +50,26 @@ export default function SignUpScreen({ navigation }: Props) {
 
   const handleSubmit = () => setFormErrors(validateSignUpForm(form))
 
+  const handleErrorResponse = (res: AuthResponse) => {
+    setFormErrors(traverseErrors(formErrors, res.errors))
+    dispatch(setErrorStatus(res.status))
+  }
+
+  const dispatchSetUser = (res: UserAndToken) => dispatch(setUser(res))
+
   React.useEffect(() => {
     if (formErrors.isValid) {
       dispatch(updateStatus('pending'))
     }
-  }, [formErrors, form])
+  }, [formErrors])
 
   React.useEffect(() => {
     if (status === 'pending') {
       signUp(form)
-        .then(res => res.json())
-        .then(res => {
-          if (res.error) {
-            dispatch(updateStatus('rejected'))
-            setFormErrors(traverseErrors(formErrors, res.errors))
-          } else {
-            dispatch(setUser({ user: res.user, token: res.token }))
-          }
-        })
-        .catch(console.error)
+        .then(either => either.fold(handleErrorResponse, dispatchSetUser))
+        .catch(() => setErrorStatus('Error'))
     }
-  }, [status])
+  }, [status, form])
 
   return (
     <Layout>
@@ -83,6 +83,8 @@ export default function SignUpScreen({ navigation }: Props) {
             justifyContent: 'center',
           }}
         >
+          <Text>Sign Up</Text>
+          {errorStatus && <Text>{errorStatus}</Text>}
           <VStack space={8}>
             <Input
               value={name}
@@ -95,7 +97,6 @@ export default function SignUpScreen({ navigation }: Props) {
               onChangeText={onChangeText('username')}
               placeholder={t('common.username') as string}
               error={t(formErrors.username as string)}
-              keyboardType="numeric"
             />
             <Input
               value={email}
@@ -109,7 +110,6 @@ export default function SignUpScreen({ navigation }: Props) {
               onChangeText={onChangeText('password')}
               placeholder={t('common.password') as string}
               error={t(formErrors.password as string)}
-              keyboardType="numeric"
               secureTextEntry
             />
           </VStack>

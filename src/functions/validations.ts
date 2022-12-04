@@ -25,6 +25,11 @@ const signUpVlidations = {
   password: predicateWithLengthValidation(8),
 }
 
+const loginValidations = {
+  email: Predicate(isEmail),
+  password: predicateWithLengthValidation(1),
+}
+
 const runValidations = (predicates: Predicates) => (form: Form) =>
   reduce(
     (acc, [key, value]) =>
@@ -36,3 +41,4 @@ const runValidations = (predicates: Predicates) => (form: Form) =>
   )
 
 export const validateSignUpForm = runValidations(signUpVlidations)
+export const validateLoginForm = runValidations(loginValidations)

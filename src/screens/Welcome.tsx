@@ -12,8 +12,6 @@ type Props = NativeStackScreenProps<AuthStackPramList, 'Welcome'>
 export default function Welcome({ navigation }: Props) {
   const { t } = useTranslation()
 
-  const onPress = () => navigation.navigate('SignUp')
-
   return (
     <Layout pt={16}>
       <VStack alignItems="center" space={2}>
@@ -25,10 +23,12 @@ export default function Welcome({ navigation }: Props) {
         </Text>
       </VStack>
       <VStack mt={8}>
-        <Button onPress={onPress}>{t('Auth.signUp')}</Button>
+        <Button onPress={() => navigation.navigate('SignUp')}>
+          {t('Auth.signUp')}
+        </Button>
         <VStack mt={6} alignItems="center" space={2}>
           <Text>{t('Auth.alreadyHaveAccount')}</Text>
-          <Pressable onPress={() => null}>
+          <Pressable onPress={() => navigation.navigate('Login')}>
             <Text variant="tertiary">{t('Auth.login')}</Text>
           </Pressable>
         </VStack>
