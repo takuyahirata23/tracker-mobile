@@ -57,6 +57,8 @@ export default function SignUp({ navigation }: Props) {
 
   const dispatchSetUser = (res: UserAndToken) => dispatch(setUser(res))
 
+  const isPending = status === 'pending'
+
   React.useEffect(() => {
     if (formErrors.isValid) {
       dispatch(updateStatus('pending'))
@@ -64,7 +66,7 @@ export default function SignUp({ navigation }: Props) {
   }, [formErrors])
 
   React.useEffect(() => {
-    if (status === 'pending') {
+    if (isPending) {
       signUp(form)
         .then(either => either.fold(handleErrorResponse, dispatchSetUser))
         .catch(() => setErrorStatus('Error'))
@@ -114,7 +116,12 @@ export default function SignUp({ navigation }: Props) {
             />
           </VStack>
           <VStack mt={8} space={8}>
-            <Button onPress={handleSubmit} bgColor="btn-primary.500">
+            <Button
+              onPress={handleSubmit}
+              bgColor="btn-primary.500"
+              isLoading={isPending}
+              loadingText={t('common.loading') as string}
+            >
               {t('Auth.signUp')}
             </Button>
             <Button onPress={navigation.goBack} bgColor="transparent">

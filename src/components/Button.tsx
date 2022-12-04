@@ -1,36 +1,58 @@
 import React from 'react'
-import { Pressable } from 'native-base'
+import { Pressable, Spinner, HStack, Box } from 'native-base'
 
 import Text from './Text'
 
-import type { IButtonProps } from 'native-base'
+import type { IBoxProps } from 'native-base'
 import type { Props as TextProps } from './Text'
 
 export type Props = {
   children: string
   onPress: () => void
   variant?: 'primary' | 'secondary'
+  isLoading?: boolean
+  loadingText?: string
+  disabled?: boolean
   TextProps?: Omit<TextProps, 'children'>
-} & IButtonProps
+} & IBoxProps
 
 export default function Button({
   children,
   onPress,
   variant = 'primary',
+  isLoading = false,
+  loadingText = '',
+  disabled,
   TextProps = {},
   ...rest
 }: Props) {
   return (
     <Pressable
       onPress={onPress}
-      p={2}
-      borderRadius={6}
-      bgColor={`btn-${variant}.500`}
-      {...rest}
+      disabled={typeof disabled === 'boolean' ? disabled : isLoading}
     >
-      <Text textAlign="center" {...TextProps}>
-        {children}
-      </Text>
+      {({ isPressed }) => (
+        <Box
+          p={2}
+          bgColor={`btn-${variant}.500`}
+          opacity={isPressed ? 0.85 : 1}
+          borderRadius={6}
+          {...rest}
+        >
+          {isLoading ? (
+            <HStack space={2} justifyContent="center">
+              <Spinner color="bg-primary.500" />
+              <Text textAlign="center" {...TextProps}>
+                {loadingText}
+              </Text>
+            </HStack>
+          ) : (
+            <Text textAlign="center" {...TextProps}>
+              {children}
+            </Text>
+          )}
+        </Box>
+      )}
     </Pressable>
   )
 }
