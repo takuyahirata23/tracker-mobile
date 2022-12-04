@@ -2,7 +2,7 @@ type FormErrors = {
   isValid: boolean
 }
 
-type Errors = {
+export type Errors = {
   [key: string]: string[]
 }
 
