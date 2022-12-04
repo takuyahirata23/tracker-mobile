@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { VStack, KeyboardAvoidingView, ScrollView } from 'native-base'
 
-import { Layout, Button, Input } from '~/components'
+import { Layout, Button, Input, Text } from '~/components'
 import { validateSignUpForm } from '~/functions/validations'
 import checkOS from '~/procedures/checkOS'
 import { signUp } from '~/procedures/auth'
@@ -35,7 +35,7 @@ const formErrorInitialState = {
 export default function SignUp({ navigation }: Props) {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.auth.status)
+  const { status, errorStatus } = useAppSelector(state => state.auth)
 
   const [form, setForm] = React.useState(formInitialState)
 
@@ -83,6 +83,8 @@ export default function SignUp({ navigation }: Props) {
             justifyContent: 'center',
           }}
         >
+          <Text>Sign Up</Text>
+          {errorStatus && <Text>{errorStatus}</Text>}
           <VStack space={8}>
             <Input
               value={name}
