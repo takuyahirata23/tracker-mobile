@@ -29,13 +29,15 @@ interface AuthState {
   token: null | string
   status: Status
   errorStatus: null | string
+  isFetchingToken: boolean
 }
 
 const initialState: AuthState = {
   user: null,
   token: null,
-  status: 'idle',
+  status: 'pending',
   errorStatus: null,
+  isFetchingToken: true,
 }
 
 export const authSlice = createSlice({
@@ -54,9 +56,14 @@ export const authSlice = createSlice({
     updateStatus: (state, { payload }: PayloadAction<Status>) => {
       state.status = payload
     },
+    setToken: (state, { payload }: PayloadAction<string | null>) => {
+      state.token = payload
+      state.isFetchingToken = false
+    },
   },
 })
 
-export const { setUser, updateStatus, setErrorStatus } = authSlice.actions
+export const { setUser, setToken, updateStatus, setErrorStatus } =
+  authSlice.actions
 
 export default authSlice.reducer

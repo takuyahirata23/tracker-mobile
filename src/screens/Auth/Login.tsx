@@ -3,7 +3,7 @@ import { VStack, KeyboardAvoidingView, ScrollView } from 'native-base'
 import { useTranslation } from 'react-i18next'
 
 import { Button, Layout, Text, Input } from '~/components'
-import { login } from '~/procedures/auth'
+import { login, setTokenToAsyncStorage } from '~/procedures/auth'
 import checkOS from '~/procedures/checkOS'
 import { validateLoginForm } from '~/functions/validations'
 import { useAppSelector, useAppDispatch } from '~/hooks/reduxAppHooks'
@@ -46,7 +46,10 @@ export default function Login({ navigation }: Props) {
   const dispatchSetErrorStatus = ({ status }: { status: string }) =>
     dispatch(setErrorStatus(status))
 
-  const dispatchSetUser = (res: UserAndToken) => dispatch(setUser(res))
+  const dispatchSetUser = (res: UserAndToken) => {
+    dispatch(setUser(res))
+    setTokenToAsyncStorage(res.token)
+  }
 
   const isPending = status === 'pending'
 

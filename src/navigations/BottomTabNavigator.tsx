@@ -1,8 +1,9 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home, User } from 'react-native-feather'
-import checkOS from '~/procedures/checkOS'
+import { useToken } from 'native-base'
 
+import checkOS from '~/procedures/checkOS'
 import HomeScreen from '~/screens/HomeScreen'
 import ProfileScreen from '~/screens/ProfileScreen'
 
@@ -11,6 +12,11 @@ const BottomTab = createBottomTabNavigator()
 const isIos = checkOS()
 
 export default function BottomTabNavigator() {
+  const [label, background] = useToken('colors', [
+    'primary.500',
+    'bg-secondary.500',
+  ])
+
   return (
     <BottomTab.Navigator
       safeAreaInsets={{
@@ -18,12 +24,11 @@ export default function BottomTabNavigator() {
       }}
       screenOptions={{
         headerShown: false,
-        tabBarActiveBackgroundColor: '#1e293b',
         tabBarLabelStyle: {
-          color: '#ffffff',
+          color: label,
         },
         tabBarStyle: {
-          backgroundColor: '#1e293b',
+          backgroundColor: background,
         },
       }}
     >

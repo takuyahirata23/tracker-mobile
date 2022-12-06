@@ -9,7 +9,7 @@ export default function HomeScreen() {
       className="bg-bg-primary flex-1"
       edges={['top', 'right', 'left', 'bottom']}
     >
-      <Text className="text-secondary text-3xl">Hello</Text>
+      <Text className="text-secondary text-3xl">Hello!</Text>
     </SafeAreaView>
   )
 }

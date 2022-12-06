@@ -5,7 +5,7 @@ import { VStack, KeyboardAvoidingView, ScrollView } from 'native-base'
 import { Layout, Button, Input, Text } from '~/components'
 import { validateSignUpForm } from '~/functions/validations'
 import checkOS from '~/procedures/checkOS'
-import { signUp } from '~/procedures/auth'
+import { signUp, setTokenToAsyncStorage } from '~/procedures/auth'
 import { useAppSelector, useAppDispatch } from '~/hooks/reduxAppHooks'
 import { setUser, updateStatus, setErrorStatus } from '~/redux/authSlice'
 import { traverseErrors } from '~/functions/traverseErrors'
@@ -55,7 +55,10 @@ export default function SignUp({ navigation }: Props) {
     dispatch(setErrorStatus(res.status))
   }
 
-  const dispatchSetUser = (res: UserAndToken) => dispatch(setUser(res))
+  const dispatchSetUser = (res: UserAndToken) => {
+    dispatch(setUser(res))
+    setTokenToAsyncStorage(res.token)
+  }
 
   const isPending = status === 'pending'
 
