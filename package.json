@@ -18,6 +18,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "@reduxjs/toolkit": "^1.9.1",
     "fts-utils": "^1.1.13",
+    "graphql": "^16.6.0",
     "i18next": "^22.0.6",
     "native-base": "^3.4.23",
     "nativewind": "^2.0.11",
@@ -29,7 +30,8 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "^3.18.2",
     "react-native-svg": "12.1.1",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "urql": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
