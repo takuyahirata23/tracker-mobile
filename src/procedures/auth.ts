@@ -1,8 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Left, Right } from 'fts-utils'
 
 import { url } from '~/utils/constants'
 
 import type { SignUpForm, LoginForm } from '~/types/form'
+
+const key = 'token'
 
 const ResponseEither = (res: { error: boolean }) =>
   res.error ? Left(res) : Right(res)
@@ -32,3 +35,8 @@ export const login = (form: LoginForm) =>
     .then(res =>
       ResponseEither(res).map(res => ({ user: res.user, token: res.token }))
     )
+
+export const setTokenToAsyncStorage = (token: string) =>
+  AsyncStorage.setItem(key, token).catch(console.error)
+
+export const getToken = () => AsyncStorage.getItem(key)

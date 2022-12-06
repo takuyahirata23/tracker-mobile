@@ -8,10 +8,11 @@
     "start": "react-native start",
     "test": "jest --collect-coverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "pod": "cd ios && pod install"
+    "pod": "bundle exec pod install"
   },
   "dependencies": {
     "@os-team/i18next-react-native-language-detector": "^1.0.20",
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/bottom-tabs": "^6.4.1",
     "@react-navigation/native": "^6.0.14",
     "@react-navigation/native-stack": "^6.9.2",
