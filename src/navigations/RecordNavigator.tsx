@@ -2,15 +2,15 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useToken } from 'native-base'
 
-import Motorcycles from '~/screens/Garage/Motorcycles'
-import NewMotorcycle from '~/screens/Garage/NewMotorcycle'
+import Tracks from '~/screens/Record/Tracks'
+import NewTrack from '~/screens/Record/NewTrack'
 
-export type GarageStackparmList = {
-  Motorcycles: undefined
-  NewMotorcycle: undefined
+export type RecordStackparmList = {
+  Tracks: undefined
+  NewTrack: undefined
 }
 
-const Stack = createNativeStackNavigator<GarageStackparmList>()
+const Stack = createNativeStackNavigator<RecordStackparmList>()
 
 export default function GarageNavigator() {
   const [color, background] = useToken('colors', [
@@ -26,8 +26,8 @@ export default function GarageNavigator() {
         },
       }}
     >
-      <Stack.Screen name="Motorcycles" component={Motorcycles} />
-      <Stack.Screen name="NewMotorcycle" component={NewMotorcycle} />
+      <Stack.Screen name="Tracks" component={Tracks} />
+      <Stack.Screen name="NewTrack" component={NewTrack} />
     </Stack.Navigator>
   )
 }

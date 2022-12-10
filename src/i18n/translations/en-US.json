@@ -5,7 +5,8 @@
     "username": "Username",
     "email": "Email",
     "password": "Password",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "new": "New"
   },
   "Auth": {
     "heading": "Hi👋 Track Addicts!",
@@ -13,6 +14,19 @@
     "alreadyHaveAccount": "Already have your account?",
     "login": "Log in",
     "signUp": "Sign up"
+  },
+  "Record": {
+    "Tracks": {
+      "title": "My Tracks"
+    },
+    "NewTrack": {
+      "title": "New Track"
+    }
+  },
+  "Garage": {
+    "Motorcycles": {
+      "title": "My Motorcycles"
+    }
   },
   "validationErroMessages": {
     "name": "At least 2 charactars required",

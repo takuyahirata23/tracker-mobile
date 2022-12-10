@@ -4,9 +4,9 @@ import { Select, VStack, Spinner } from 'native-base'
 
 import { Layout, Text, Button, Input } from '~/components'
 
-const MakeQuery = `
+const MakesQuery = `
   query {
-    vehicles {
+    makes {
       id
       name
     }
@@ -23,8 +23,8 @@ const ModalQuery = `
 `
 
 const UserMotorcyleRegistrationMutation = `
-  mutation($makeId: String!, $modalId: String!, $year: Int!) {
-    registerUserVehicle(makeId: $makeId, modalId: $modalId, year: $year) {
+mutation($motorcycleInput: MotorcycleInput!) {
+  registerMotorcycle(MotorcycleInput: $motorcycleInput) {
       id
       make
       modal
@@ -33,30 +33,32 @@ const UserMotorcyleRegistrationMutation = `
   }
 `
 
-export default function NewVehicle() {
+export default function NewMotorcycle() {
   const [makeId, setMakeId] = React.useState('')
   const [modalId, setModalId] = React.useState('')
   const [year, setYear] = React.useState('')
-  const [makeRes] = useQuery({ query: MakeQuery })
+  const [makesRes] = useQuery({ query: MakesQuery })
   const [modalRes] = useQuery({
     query: ModalQuery,
     pause: !Boolean(makeId),
     variables: { makeId },
   })
 
-  const [registerMotorcycleResult, registerMotorcycle] = useMutation(
+  const [_registerMotorcycleResult, registerMotorcycle] = useMutation(
     UserMotorcyleRegistrationMutation
   )
 
   const onSubmit = () => {
     if (makeId && modalId && year) {
-      registerMotorcycle({ makeId, modalId, year: Number(year) })
+      registerMotorcycle({
+        motorcycleInput: { makeId, modalId, year: Number(year) },
+      }).then(console.log)
     }
   }
 
-  if (makeRes.fetching) return null
+  if (makesRes.fetching) return null
 
-  const makes = makeRes.data.vehicles
+  const makes = makesRes.data?.makes
   const modals = modalRes.data?.modals || []
 
   return (
