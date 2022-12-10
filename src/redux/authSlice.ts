@@ -35,7 +35,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   token: null,
-  status: 'pending',
+  status: 'idle',
   errorStatus: null,
   isFetchingToken: true,
 }

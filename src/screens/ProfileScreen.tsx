@@ -1,15 +1,36 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useQuery } from 'urql'
 
-import { Text } from 'react-native'
+import { Layout, Text } from '~/components'
+
+const UserQuery = `
+  query {
+    user {
+      id
+      name
+      email
+    }
+    userVehicles {
+      id
+      make
+      modal
+      year
+    }
+  }
+`
 
 export default function ProfileScreen() {
+  const [res] = useQuery({ query: UserQuery })
+
+  if (res.fetching) return null
+
+  const { name } = res.data.user
+
+  console.log(res.data)
+
   return (
-    <SafeAreaView
-      className="bg-bg-primary flex-1"
-      edges={['top', 'right', 'left', 'bottom']}
-    >
-      <Text className="text-secondary text-3xl">Profile</Text>
-    </SafeAreaView>
+    <Layout>
+      <Text type="heading">{name}</Text>
+    </Layout>
   )
 }

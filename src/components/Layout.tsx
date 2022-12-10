@@ -7,7 +7,7 @@ type Props = {
 
 export default function Layout({ children, ...rest }: Props) {
   return (
-    <VStack flex={1} p={6} safeArea bgColor="bg-primary.500" {...rest}>
+    <VStack flex={1} p={4} bgColor="bg-primary.500" {...rest}>
       {children}
     </VStack>
   )

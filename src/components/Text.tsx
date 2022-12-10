@@ -19,7 +19,7 @@ export default function Text({
   return (
     <T
       color={`[${variant}].500`}
-      fontSize={isBody ? 'lg' : '3xl'}
+      fontSize={isBody ? 'lg' : '2xl'}
       fontWeight={isBody ? 'normal' : 'bold'}
       {...rest}
     >

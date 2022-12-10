@@ -18,14 +18,16 @@ export default function Router() {
     getToken().then(dispatchSetToken)
   }, [])
 
-  const client = createClient({
-    url: url.concat('/api'),
-    fetchOptions: () => {
-      return {
-        headers: { authorization: token ? `Bearer ${token}` : '' },
-      }
-    },
-  })
+  const client = React.useMemo(() => {
+    return createClient({
+      url: url.concat('/api'),
+      fetchOptions: () => {
+        return {
+          headers: { authorization: token ? `Bearer ${token}` : '' },
+        }
+      },
+    })
+  }, [token])
 
   if (isFetchingToken) return null
 
