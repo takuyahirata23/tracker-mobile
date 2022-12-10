@@ -33,7 +33,8 @@ export default function Button({
     >
       {({ isPressed }) => (
         <Box
-          p={2}
+          py={2}
+          px={3}
           bgColor={`btn-${variant}.500`}
           opacity={isPressed ? 0.85 : 1}
           borderRadius={6}
