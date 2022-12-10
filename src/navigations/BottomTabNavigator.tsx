@@ -1,11 +1,12 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Home, User } from 'react-native-feather'
+import { Home, User, Tool } from 'react-native-feather'
 import { useToken } from 'native-base'
 
 import checkOS from '~/procedures/checkOS'
 import HomeScreen from '~/screens/HomeScreen'
 import ProfileScreen from '~/screens/ProfileScreen'
+import GarageNavigator from '~/navigations/GarageNavigator'
 
 const BottomTab = createBottomTabNavigator()
 
@@ -36,6 +37,11 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeScreen}
         options={{ tabBarIcon: () => <Home width={30} stroke="#0ea4e9" /> }}
+      />
+      <BottomTab.Screen
+        name="Garage"
+        component={GarageNavigator}
+        options={{ tabBarIcon: () => <Tool width={30} stroke="#0ea4e9" /> }}
       />
       <BottomTab.Screen
         name="Profile"
