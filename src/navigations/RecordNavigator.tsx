@@ -2,12 +2,14 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useToken } from 'native-base'
 
+import MyTracks from '~/screens/Record/MyTracks'
 import Tracks from '~/screens/Record/Tracks'
-import NewTrack from '~/screens/Record/NewTrack'
+import Track from '~/screens/Record/Track'
 
 export type RecordStackparmList = {
+  MyTracks: undefined
   Tracks: undefined
-  NewTrack: undefined
+  Track: { myTrackId: string; title: string }
 }
 
 const Stack = createNativeStackNavigator<RecordStackparmList>()
@@ -26,8 +28,13 @@ export default function GarageNavigator() {
         },
       }}
     >
+      <Stack.Screen name="MyTracks" component={MyTracks} />
       <Stack.Screen name="Tracks" component={Tracks} />
-      <Stack.Screen name="NewTrack" component={NewTrack} />
+      <Stack.Screen
+        name="Track"
+        component={Track}
+        options={({ route }) => ({ title: route.params.title })}
+      />
     </Stack.Navigator>
   )
 }
