@@ -1,13 +1,21 @@
 import React from 'react'
+import { HStack, VStack } from 'native-base'
 import { useQuery } from 'urql'
-import { Calendar } from 'react-native-calendars'
 
-import { Layout, Text } from '~/components'
+import { Layout, Text, Button } from '~/components'
 
 import type { RouteProp } from '@react-navigation/native'
 import type { RecordStackparmList } from '~/navigations/RecordNavigator'
 
 type TrackScreenRouteProp = RouteProp<RecordStackparmList, 'Track'>
+
+type BestLapTime = {
+  id: string
+  minutes: number
+  seconds: number
+  miliseconds: number
+  date: string
+}
 
 type Props = {
   route: TrackScreenRouteProp
@@ -23,6 +31,13 @@ const MyTrackQuery = `
         description
       }
     }
+
+    bestLapTimes(userTrackId: $userTrackId) {
+      date
+      minutes
+      seconds
+      miliseconds
+    }
   }
 `
 
@@ -34,10 +49,29 @@ export default function Track({ route }: Props) {
 
   if (res.fetching) return null
 
-  const { track } = res.data.userTrack
+  const {
+    userTrack: { track },
+    bestLapTimes,
+  } = res.data
   return (
     <Layout>
-      <Text>{track.name}</Text>
+      <VStack>
+        {track.description && <Text>{track.description}</Text>}
+        <Button onPress={() => null}>New</Button>
+      </VStack>
+
+      <VStack mt={4}>
+        {bestLapTimes.map(
+          ({ id, minutes, seconds, miliseconds, date }: BestLapTime) => (
+            <HStack key={id} justifyContent="space-between">
+              <Text>
+                {minutes}:{seconds}:{miliseconds}
+              </Text>
+              <Text>{date}</Text>
+            </HStack>
+          )
+        )}
+      </VStack>
     </Layout>
   )
 }
