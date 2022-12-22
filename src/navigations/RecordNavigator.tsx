@@ -5,11 +5,13 @@ import { useToken } from 'native-base'
 import MyTracks from '~/screens/Record/MyTracks'
 import Tracks from '~/screens/Record/Tracks'
 import Track from '~/screens/Record/Track'
+import LapTimeForm from '~/screens/Record/LapTimeFrom'
 
 export type RecordStackparmList = {
   MyTracks: undefined
   Tracks: undefined
   Track: { myTrackId: string; title: string }
+  LapTimeForm: { myTrackId: string; title: string }
 }
 
 const Stack = createNativeStackNavigator<RecordStackparmList>()
@@ -35,6 +37,7 @@ export default function GarageNavigator() {
         component={Track}
         options={({ route }) => ({ title: route.params.title })}
       />
+      <Stack.Screen name="LapTimeForm" component={LapTimeForm} />
     </Stack.Navigator>
   )
 }

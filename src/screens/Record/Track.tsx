@@ -4,10 +4,10 @@ import { useQuery } from 'urql'
 
 import { Layout, Text, Button } from '~/components'
 
-import type { RouteProp } from '@react-navigation/native'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { RecordStackparmList } from '~/navigations/RecordNavigator'
 
-type TrackScreenRouteProp = RouteProp<RecordStackparmList, 'Track'>
+type Props = NativeStackScreenProps<RecordStackparmList, 'Track'>
 
 type BestLapTime = {
   id: string
@@ -15,10 +15,6 @@ type BestLapTime = {
   seconds: number
   miliseconds: number
   date: string
-}
-
-type Props = {
-  route: TrackScreenRouteProp
 }
 
 const MyTrackQuery = `
@@ -41,7 +37,7 @@ const MyTrackQuery = `
   }
 `
 
-export default function Track({ route }: Props) {
+export default function Track({ route, navigation }: Props) {
   const [res] = useQuery({
     query: MyTrackQuery,
     variables: { userTrackId: route.params.myTrackId },
@@ -53,17 +49,24 @@ export default function Track({ route }: Props) {
     userTrack: { track },
     bestLapTimes,
   } = res.data
+
+  const toLapTimeForm = () =>
+    navigation.navigate('LapTimeForm', {
+      myTrackId: route.params.myTrackId,
+      title: track.name,
+    })
+
   return (
     <Layout>
       <VStack>
         {track.description && <Text>{track.description}</Text>}
-        <Button onPress={() => null}>New</Button>
+        <Button onPress={toLapTimeForm}>New</Button>
       </VStack>
 
       <VStack mt={4}>
         {bestLapTimes.map(
-          ({ id, minutes, seconds, miliseconds, date }: BestLapTime) => (
-            <HStack key={id} justifyContent="space-between">
+          ({ minutes, seconds, miliseconds, date }: BestLapTime, i: number) => (
+            <HStack key={i} justifyContent="space-between">
               <Text>
                 {minutes}:{seconds}:{miliseconds}
               </Text>
