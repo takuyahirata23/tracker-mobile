@@ -1,33 +1,60 @@
 import { Predicate } from 'fts-utils'
-import { reduce } from 'ramda'
+import { reduce, lte, gte, compose, prop } from 'ramda'
 
 import type { Predicate as P } from 'fts-utils'
 
 type Predicates = { [key: string]: P }
 type Form = { [key: string]: string }
 
-export const hasValidLength =
+const digitsRegex = /^\d+$/
+
+export const areOnlyNumbers = (x: string) => digitsRegex.test(x)
+
+export const validateMinLength =
   (minLength: number = 1) =>
   (x: string) => {
     return x.trim().length >= minLength
   }
 
+export const validateMaxLength =
+  (maxLength: number = 1) =>
+  (x: string) => {
+    return x.trim().length <= maxLength
+  }
+
+export const isNumberString = (x: string) => x.match(/\d/)
+
 export const isEmail = (email: string) =>
   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
-export const predicateWithLengthValidation = (x: number) =>
-  Predicate(hasValidLength(x))
+export const predicateWithMinimumLengthValidation = (x: number) =>
+  Predicate(validateMinLength(x))
+
+export const predicateWithMaxLengthValidation = (x: number) =>
+  Predicate(validateMinLength(x))
 
 const signUpVlidations = {
-  name: predicateWithLengthValidation(2),
-  username: predicateWithLengthValidation(2),
+  name: predicateWithMinimumLengthValidation(2),
+  username: predicateWithMinimumLengthValidation(2),
   email: Predicate(isEmail),
-  password: predicateWithLengthValidation(8),
+  password: predicateWithMinimumLengthValidation(8),
 }
 
 const loginValidations = {
   email: Predicate(isEmail),
-  password: predicateWithLengthValidation(1),
+  password: predicateWithMinimumLengthValidation(1),
+}
+
+const lapTimeValidations = {
+  minutes: predicateWithMinimumLengthValidation(1)
+    .concat(predicateWithMaxLengthValidation(1))
+    .concat(Predicate(compose(gte(9), Number))),
+  seconds: predicateWithMinimumLengthValidation(2)
+    .concat(predicateWithMaxLengthValidation(2))
+    .concat(Predicate(compose(gte(59), Number))),
+  miliseconds: predicateWithMinimumLengthValidation(3)
+    .concat(predicateWithMaxLengthValidation(3))
+    .concat(Predicate(compose(gte(999), Number))),
 }
 
 const runValidations = (predicates: Predicates) => (form: Form) =>
@@ -42,3 +69,4 @@ const runValidations = (predicates: Predicates) => (form: Form) =>
 
 export const validateSignUpForm = runValidations(signUpVlidations)
 export const validateLoginForm = runValidations(loginValidations)
+export const validateLapTimeForm = runValidations(lapTimeValidations)

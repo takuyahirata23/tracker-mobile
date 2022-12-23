@@ -1,15 +1,8 @@
 import React from 'react'
-import {
-  Select,
-  HStack,
-  VStack,
-  Box,
-  useDisclose,
-  Pressable,
-} from 'native-base'
+import { Select, HStack, VStack, Box, useDisclose } from 'native-base'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'urql'
-import DatePicker, { DatePickerProps } from 'react-native-date-picker'
+import DatePicker from 'react-native-date-picker'
 import { split, compose, head } from 'ramda'
 
 import { Layout, Text, Button, Input } from '~/components'
@@ -22,9 +15,9 @@ type Props = NativeStackScreenProps<RecordStackparmList, 'LapTimeForm'>
 const today = new Date()
 
 const initialState = {
-  minutes: '',
-  seconds: '',
-  miliseconds: '',
+  minutes: '0',
+  seconds: '00',
+  miliseconds: '000',
   motorcycleId: '',
   myTrackId: '',
   date: today,
@@ -65,7 +58,14 @@ export default function LapTimeForm({ route }: Props) {
   const onChangeText = (field: string) => (x: string | Date) =>
     setForm(prev => ({ ...prev, [field]: x }))
 
+  const onChangeDate = (date: Date) => {
+    onChangeText('date')(date)
+    onClose()
+  }
+
   const formatDate = (date: string) => compose(head, split('T'))(date)
+
+  const handleSubmit = () => {}
 
   return (
     <Layout>
@@ -138,15 +138,13 @@ export default function LapTimeForm({ route }: Props) {
           modal
           open={isOpen}
           date={date}
-          onConfirm={date => {
-            onChangeText('date')(date)
-            onClose()
-          }}
+          onConfirm={onChangeDate}
           onCancel={onClose}
           mode="date"
           maximumDate={today}
         />
       </VStack>
+      <Button onPress={handleSubmit}>{t('common.save')}</Button>
     </Layout>
   )
 }
